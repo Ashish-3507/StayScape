@@ -1,0 +1,131 @@
+<% layout("layouts/boilerplate") %>
+
+<div class="row mt-4">
+
+    <div class="col-lg-6 offset-lg-3">
+
+        <div class="card form-card p-4">
+
+            <h4 class="mb-3 fw-semibold">
+                Create New Listing
+            </h4>
+
+            <form action="/listing" 
+            novalidate method="POST" 
+            class="needs-validation" 
+            enctype="multipart/form-data">
+
+
+                <div class="mb-3">
+                    <label class="form-label">Title</label>
+
+                    <input
+                        type="text"
+                        name="listing[title]"
+                        placeholder="Enter the title"
+                        class="form-control"
+                        required
+                    >
+
+                    <div class="invalid-feedback">
+                        Please enter title
+                    </div>
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Description
+                    </label>
+
+                    <textarea
+                        name="listing[description]"
+                        class="form-control"
+                        required
+                    ></textarea>
+
+                    <div class="invalid-feedback">
+                        Please enter description
+                    </div>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Upload your image
+                    </label>
+
+                    <input
+                        type="file"
+                        name="listing[image]"
+                        class="form-control"
+                    >
+                    required
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Price
+                    </label>
+
+                    <input
+                        type="number"
+                        name="listing[price]"
+                        class="form-control"
+                        required
+                    >
+
+                    <div class="invalid-feedback">
+                        Enter price
+                    </div>
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        name="listing[location]"
+                        class="form-control"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Country
+                    </label>
+
+                    <input
+                        type="text"
+                        name="listing[country]"
+                        class="form-control"
+                        required
+                    >
+
+                </div>
+
+
+                <button class="btn add-btn w-100 mt-2">
+                    Add Listing
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

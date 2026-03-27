@@ -1,0 +1,83 @@
+# StayScape – Travel Listing Web App
+StayScape is a full-stack web application where users can create, edit, and review travel listings.  
+Built using Node.js, Express, MongoDB, EJS, and Cloudinary.
+
+## Features
+- User Authentication (Login / Signup)
+- Create, Edit, Delete Listings
+- Upload Images using Cloudinary
+- Add and Delete Reviews
+- Authorization (Owner only edit/delete)
+- Flash Messages
+- Map integration
+- Responsive UI with Bootstrap
+
+## Tech Stack
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- EJS
+- Bootstrap
+- Cloudinary
+- Multer
+- Passport.js
+- Express Session
+
+
+## Installation
+1. Clone the repository:-git clone https://github.com/yourusername/stayscape.git
+2. Go to project folder :-cd stayscape
+3. Install dependencies:-npm install
+4. Create .env file
+
+Add the following:
+
+CLOUD_NAME=your_cloud_name
+CLOUD_API_KEY=your_key
+CLOUD_API_SECRET=your_secret
+
+5. Run the server
+nodemon app.js
+
+6. Open in browser
+http://localhost:8080
+
+
+## Folder Structure
+
+models/
+routes/
+controllers/
+views/
+public/
+cloudConfig.js
+app.js
+
+## Author
+
+Ashish  
+B.Tech CSE  
+Full Stack Web Development Project
+
+## License
+
+This project is for educational purposes.
+
+
+
+
+NEXT GOAL:
+1. creating filter functionality-->try something like air bnb , oyo ..ect
+2. adding multiple image for a listing
+3. ristricting the size of the file that is being uploaded
+4. Adding map feature like in air bnb where we get a map for the location/state
+5. adding search bar
+6. add catagories to the the listings["hostel" , "hotel", "flat", "villa" .....ect]...+connect this to the filter
+7. make a payment gateway...
+8. make a contact/messagging between just the owner and buyer
+9. make lightmode and darkmode switch
+
+
+
+
