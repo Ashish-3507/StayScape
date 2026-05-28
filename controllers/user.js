@@ -1,11 +1,4 @@
-const express = require('express');
-const router = express.Router();
 const User = require("../models/user");
-const wrapAsync = require("../util/WrapAsync");
-const passport = require('passport');
-const { saveRedirectUrl } = require('../middelware');
-const userController = require("../controllers/user");
-
 
 module.exports.renderSignup = (req,res)=>{
     res.render("user/signup");
@@ -48,5 +41,4 @@ module.exports.logout = (req,res, next)=>{
         req.flash("success", "you are logged out !!");
         res.redirect("/listing");
     });
-}
 }
