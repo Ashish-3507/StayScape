@@ -4,7 +4,7 @@ const Listing = require('../models/listing.js');
 
 main().catch((err) => console.log(err));
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/StayScape');
+  await mongoose.connect('mongodb+srv://ashish:Ashish123@cluster0.e85gdfa.mongodb.net/StayScape');
   console.log('Mongodb working');
 }
 
