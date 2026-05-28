@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const User = require("../models/user");
 const wrapAsync = require("../util/WrapAsync");
-const password = require('passport');
-const { saveRedirectUrl } = require('../middelware');
+const passport = require('passport');
+const { saveRedirectUrl } = require('../middleware');
 const userController = require("../controllers/user");
 
 
@@ -17,7 +17,7 @@ router.route("/login")
 .get(userController.renderLogin)
 .post( 
 saveRedirectUrl,
-password.authenticate(
+passport.authenticate(
     "local", 
     {failureRedirect: '/login', 
     failureFlash: true

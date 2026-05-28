@@ -11,7 +11,7 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require("./util/ExpressError");
 const listings =  require("./routes/listing");
 const review = require("./routes/review");
-const password = require('passport');
+const passport = require('passport');
 const User = require('./models/user');
 const LocalStrategy = require('passport-local');
 const userrouter = require('./routes/user');
@@ -61,11 +61,11 @@ async function main() {
 app.use(session(sessionOption));
 app.use(flash());
 
-app.use(password.initialize());
-app.use(password.session());
-password.use(new LocalStrategy(User.authenticate()));
-password.serializeUser(User.serializeUser());
-password.deserializeUser(User.deserializeUser());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use((req,res,next)=>{
   res.locals.success = req.flash("success");
@@ -93,6 +93,7 @@ app.use((err, req, res, next) => {
   res.render("error.ejs", { message });
 });
 
-app.listen(8080, () => {
-  console.log('server is  listening');
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`server is listening on port ${PORT}`);
 });
