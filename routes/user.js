@@ -8,6 +8,10 @@ const userController = require("../controllers/user");
 
 
 
+router.get("/", (req, res) => {
+    res.redirect("/signup");
+});
+
 router.route("/signup")
 .get(userController.renderSignup)
 .post( wrapAsync(userController.signup));

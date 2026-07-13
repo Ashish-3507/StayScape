@@ -27,7 +27,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
-const dburl = process.env.ATLAS_DB_URL;
+const dburl = process.env.MONGOOSE_URL;
 
 const store = MongoStore.create({
     mongoUrl: dburl,
@@ -93,7 +93,7 @@ app.use((err, req, res, next) => {
   res.render("error.ejs", { message });
 });
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`server is listening on port ${PORT}`);
 });
