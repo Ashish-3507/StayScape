@@ -92,7 +92,12 @@ app.use((err, req, res, next) => {
   res.render("error.ejs", { message });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`server is listening on port ${PORT}`);
-});
+if (require.main === module) {
+    const PORT = process.env.PORT || 3000;
+
+    app.listen(PORT, () => {
+        console.log(`server is listening on port ${PORT}`);
+    });
+}
+
+module.exports = app;
