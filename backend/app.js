@@ -4,9 +4,8 @@ require("dotenv").config({ path: path.join(__dirname, ".env") });
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const ejs = require('ejs');
 const methodOverride = require('method-override');
-const ejsMate = require("ejs-mate");
+const cors = require("cors");
 const ExpressError = require("./util/ExpressError");
 const listings =  require("./routes/listing");
 const review = require("./routes/review");
@@ -20,11 +19,9 @@ const flash = require('connect-flash');
 
 
 
-app.engine('ejs', ejsMate);
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 const dburl = process.env.MONGOOSE_URL;
 
@@ -54,11 +51,18 @@ const sessionOption={
 main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(dburl);
+  console.log("Connected to DB");
 };
 
 
 app.use(session(sessionOption));
 app.use(flash());
+
+app.use(cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true
+}));
+
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -88,8 +92,7 @@ app.use((err, req, res, next) => {
     return next(err);
   }
 
-  res.status(status);
-  res.render("error.ejs", { message });
+  res.status(status).json({ success: false, error: message });
 });
 
 const PORT = process.env.PORT || 3000;

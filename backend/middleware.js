@@ -4,9 +4,7 @@ const Review = require("./models/review");
 
 module.exports.isLoggedIn = (req,res,next)=>{
     if(!req.isAuthenticated()){
-        req.session.redirectUrl = req.originalUrl;
-        req.flash("error", "You must be loged-in");
-        return res.redirect("/login");
+        return res.status(401).json({ success: false, error: "You must be loged-in" });
     }
     next();
 };
@@ -35,13 +33,11 @@ module.exports.isOwner = async (req,res,next)=>{
     const listing = await Listing.findById(id);
 
     if(!listing){
-        req.flash("error","Listing not found");
-        return res.redirect("/listing");
+        return res.status(404).json({ success: false, error: "Listing not found" });
     }
 
     if(!req.user || !listing.owner.equals(req.user._id)){
-        req.flash("error", "you dont have access to this");
-        return res.redirect(`/listing/${id}`);
+        return res.status(403).json({ success: false, error: "you dont have access to this" });
     }
 
     next(); 
@@ -55,13 +51,11 @@ module.exports.isReviewAuthor = async (req,res,next)=>{
     const review = await Review.findById(reviewId);
 
     if(!review){
-        req.flash("error","Review not found");
-        return res.redirect(`/listing/${id}`);
+        return res.status(404).json({ success: false, error: "Review not found" });
     }
 
     if(!req.user || !review.author.equals(req.user._id)){
-        req.flash("error", "you dont have access to this");
-        return res.redirect(`/listing/${id}`);
+        return res.status(403).json({ success: false, error: "you dont have access to this" });
     }
 
     next(); 

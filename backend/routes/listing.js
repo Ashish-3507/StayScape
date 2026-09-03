@@ -32,8 +32,7 @@ router.route("/")
 );
 
 
-// new route
-router.get("/new", isLoggedIn, listingController.renderNewForm);
+// React frontend will handle new form rendering
 
 router.route("/:id")
 .get( WrapAsync(listingController.show))
@@ -47,10 +46,6 @@ router.route("/:id")
   WrapAsync(listingController.delete));
 
 
-// edit route
-router.get("/:id/edit",
-  isLoggedIn,
-  isOwner,
-  WrapAsync(listingController.edit));
+// React frontend handles edit form rendering
 
 module.exports = router;

@@ -13,23 +13,24 @@ router.get("/", (req, res) => {
 });
 
 router.route("/signup")
-.get(userController.renderSignup)
 .post( wrapAsync(userController.signup));
 
 
-router.route("/login")
-.get(userController.renderLogin)
-.post( 
-saveRedirectUrl,
-passport.authenticate(
-    "local", 
-    {failureRedirect: '/login', 
-    failureFlash: true
-    }),
-    userController.login);
+router.post("/login", (req, res, next) => {
+    passport.authenticate("local", (err, user, info) => {
+        if (err) return next(err);
+        if (!user) return res.status(401).json({ success: false, error: "Invalid username or password" });
+        req.logIn(user, (err) => {
+            if (err) return next(err);
+            return userController.login(req, res);
+        });
+    })(req, res, next);
+});
     
 
 router.get("/logout", userController.logout);
+
+router.get("/current_user", userController.currentUser);
 
 
 module.exports =  router;

@@ -4,13 +4,11 @@ const Listing = require("../models/listing");
 
 module.exports.index = async (req, res) => {
     const allListings = await Listing.find({});
-    res.render('listings/index', { allListings });
+    res.json({ success: true, data: allListings });
 }
 
 
-module.exports.renderNewForm = (req, res)=>{
-res.render("listings/new");
-}
+
 
 module.exports.create = async (req, res) => {
 
@@ -26,9 +24,7 @@ module.exports.create = async (req, res) => {
 
     await newListing.save();
 
-    req.flash("success", "New listing created successfully");
-
-    return res.redirect("/listing");
+    return res.json({ success: true, message: "New listing created successfully", data: newListing });
 };
 
 module.exports.show = async (req, res) => {
@@ -45,26 +41,11 @@ const listing = await Listing.findById(id)
     .populate("owner");
 
 if(!listing){
-    req.flash("error", "Listing not found");
-    return res.redirect('/listing');
+    return res.status(404).json({ success: false, error: "Listing not found" });
 }
 
-res.render('listings/show', { listing });
+res.json({ success: true, data: listing });
 
-}
-
-module.exports.edit = async (req, res) => {
-
-    let { id } = req.params;
-
-    const listing = await Listing.findById(id);
-
-    if (!listing) {
-        req.flash("error", "Listing not found");
-        return res.redirect("/listing");
-    }
-
-    res.render("listings/edit", { listing });
 }
 
 module.exports.update = async (req, res) => {
@@ -86,9 +67,7 @@ module.exports.update = async (req, res) => {
         await listing.save();
     }
 
-    req.flash("success", "Listing updated");
-
-    return res.redirect(`/listing/${id}`);
+    return res.json({ success: true, message: "Listing updated", data: listing });
 }
 
 module.exports.delete = async (req,res)=>{
@@ -97,8 +76,6 @@ module.exports.delete = async (req,res)=>{
 
     await Listing.findByIdAndDelete(id);
 
-    req.flash("success", "Listing Deleted successfully");
-
-    return res.redirect("/listing");
+    return res.json({ success: true, message: "Listing Deleted successfully" });
 
 }

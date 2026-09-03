@@ -1,8 +1,6 @@
 const User = require("../models/user");
 
-module.exports.renderSignup = (req,res)=>{
-    res.render("user/signup");
-}
+
 
 module.exports.signup = async(req,res, next)=>{
     try{
@@ -13,24 +11,18 @@ module.exports.signup = async(req,res, next)=>{
     const registerUser = await User.register(newUser, password);
     req.login(registerUser, (err)=>{
         if(err){return next(err);}
-        req.flash("success", "user register successfully");
-    res.redirect("/listing");
+        res.json({ success: true, message: "user register successfully", user: registerUser });
     })
     
     } catch(e){
-        req.flash("error", e.message);
-        res.redirect("/signup");
+        res.status(400).json({ success: false, error: e.message });
     }
 }
 
-module.exports.renderLogin = (req,res)=>{
-    res.render("user/login");
-}
+
 
 module.exports.login = async(req,res)=>{
-    req.flash("success", "welcome to the StayScape");
-        let redirectUrl = res.locals.redirectUrl || "/listing";
-        res.redirect(redirectUrl);
+    res.json({ success: true, message: "welcome to the StayScape", user: req.user });
 }
 
 module.exports.logout = (req,res, next)=>{
@@ -38,7 +30,10 @@ module.exports.logout = (req,res, next)=>{
         if(err){
             return next(err);
         }
-        req.flash("success", "you are logged out !!");
-        res.redirect("/listing");
+        res.json({ success: true, message: "you are logged out !!" });
     });
 }
+
+module.exports.currentUser = (req, res) => {
+    res.json({ success: true, user: req.user || null });
+};
