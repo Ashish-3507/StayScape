@@ -1,3 +1,4 @@
+```json
 {
   "engines": {
     "node": "24.8.0"
@@ -7,7 +8,7 @@
   "description": "",
   "main": "backend/app.js",
   "scripts": {
-    "start": "node backend/app.js",
+    "start": "node app.js",
     "dev": "nodemon backend/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -36,3 +37,4 @@
     "passport-local-mongoose": "^9.0.1"
   }
 }
+```
